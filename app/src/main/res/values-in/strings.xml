@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">KatalogFilm</string>
+    <string name="image_movie">Gambar Film</string>
+    <string name="title_movie">Judul Film</string>
+    <string name="date_movie">Tanggal Film</string>
+    <string name="overview">Deskripsi</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="tab2">Acara Tv</string>
+    <string name="tab1">Film</string>
+    <string name="change_language">Ganti Bahasa</string>
+    <string name="failed_to_load_data">Gagal Mengunduh Data</string>
+    <string name="rating_movie">Peringkat Film</string>
+    <string name="favorite_button">Tombol Suka</string>
+    <string name="movie">Film</string>
+    <string name="series">Serial</string>
+    <string name="my_favorite">Favorit</string>
+    <string name="add_to_myfavorite">Tambah Ke Favorit</string>
+    <string name="remove_from_favorite">Hapus Dari Favorit</string>
+    <string name="slide_bottom_sheet">Slide Bottom Sheet</string>
+    <string name="search">Cari</string>
+    <string name="search_hint">Masukkan text</string>
+    <string name="notification">Notifikasi</string>
+</resources>

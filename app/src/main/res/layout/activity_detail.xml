@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.view.activity.DetailActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar_detail"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@android:color/transparent"
+        android:elevation="1dp"
+        app:theme="@style/ToolbarColoredBackArrow" />
+
+    <ImageView
+        android:id="@+id/image_movie_detail"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@string/image_movie"
+        android:scaleType="fitXY"
+        tools:src="@drawable/poster_marrypopins" />
+
+    <TextView
+        android:id="@+id/error_data_not_load"
+        style="@style/TextTitle"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:text="@string/failed_to_load_data"
+        android:visibility="gone" />
+
+    <include layout="@layout/bottom_sheet_detail" />
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>
