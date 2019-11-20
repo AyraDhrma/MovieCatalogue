@@ -4,7 +4,7 @@ import com.ayra.moviecatalogue.data.model.TvShow;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class TvShowResponse {
 
@@ -19,7 +19,7 @@ public class TvShowResponse {
     private int totalPages;
     @SerializedName("results")
     @Expose
-    private List<TvShow> results = null;
+    private ArrayList<TvShow> results = null;
 
     public int getPage() {
         return page;
@@ -45,11 +45,11 @@ public class TvShowResponse {
         this.totalPages = totalPages;
     }
 
-    public List<TvShow> getResults() {
+    public ArrayList<TvShow> getResults() {
         return results;
     }
 
-    public void setResults(List<TvShow> results) {
+    public void setResults(ArrayList<TvShow> results) {
         this.results = results;
     }
 

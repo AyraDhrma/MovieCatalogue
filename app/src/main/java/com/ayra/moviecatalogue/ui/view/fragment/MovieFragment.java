@@ -17,13 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayra.moviecatalogue.R;
 import com.ayra.moviecatalogue.data.model.Movie;
-import com.ayra.moviecatalogue.data.response.MovieResponse;
 import com.ayra.moviecatalogue.ui.adapter.MovieAdapter;
 import com.ayra.moviecatalogue.ui.viewmodel.MainViewModel;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -78,11 +76,15 @@ public class MovieFragment extends Fragment {
     }
 
     private void displayMovie() {
+        String LANGUAGE = "en-US";
+        int page = 1;
+        String API_KEY = "0a296602e2e9f2572735bf2c91763741";
         MainViewModel mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        mainViewModel.getMovie().observe(this, new Observer<MovieResponse>() {
+        mainViewModel.setMovieList(API_KEY, LANGUAGE, page);
+        mainViewModel.getMovieList().observe(this, new Observer<ArrayList<Movie>>() {
             @Override
-            public void onChanged(MovieResponse movieResponse) {
-                if (movieResponse == null) {
+            public void onChanged(ArrayList<Movie> movies) {
+                if (movies == null) {
                     tvError.setVisibility(View.VISIBLE);
                     shimmerFrameLayout.stopShimmer();
                     shimmerFrameLayout.setVisibility(View.GONE);
@@ -90,12 +92,13 @@ public class MovieFragment extends Fragment {
                     shimmerFrameLayout.stopShimmer();
                     shimmerFrameLayout.setVisibility(View.GONE);
                     tvError.setVisibility(View.GONE);
-                    List<Movie> movieResponseMovies = movieResponse.getMovies();
-                    movies.addAll(movieResponseMovies);
                     movieAdapter.setMovies(movies);
                     movieAdapter.notifyDataSetChanged();
                 }
             }
         });
+
     }
+
 }
+

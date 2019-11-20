@@ -17,13 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayra.moviecatalogue.R;
 import com.ayra.moviecatalogue.data.model.TvShow;
-import com.ayra.moviecatalogue.data.response.TvShowResponse;
 import com.ayra.moviecatalogue.ui.adapter.TvShowAdapter;
 import com.ayra.moviecatalogue.ui.viewmodel.MainViewModel;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,11 +75,15 @@ public class TvShowFragment extends Fragment {
     }
 
     private void displayTvShow() {
+        String LANGUAGE = "en-US";
+        int page = 1;
+        String API_KEY = "0a296602e2e9f2572735bf2c91763741";
         MainViewModel tvShowViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        tvShowViewModel.getTvShow().observe(this, new Observer<TvShowResponse>() {
+        tvShowViewModel.setShowList(API_KEY, LANGUAGE, page);
+        tvShowViewModel.getTvShowList().observe(this, new Observer<ArrayList<TvShow>>() {
             @Override
-            public void onChanged(TvShowResponse tvShowResponse) {
-                if (tvShowResponse == null) {
+            public void onChanged(ArrayList<TvShow> tvShows) {
+                if (tvShows == null) {
                     shimmerFrameLayout.stopShimmer();
                     shimmerFrameLayout.setVisibility(View.GONE);
                     tvError.setVisibility(View.VISIBLE);
@@ -89,13 +91,12 @@ public class TvShowFragment extends Fragment {
                     shimmerFrameLayout.stopShimmer();
                     shimmerFrameLayout.setVisibility(View.GONE);
                     tvError.setVisibility(View.GONE);
-                    List<TvShow> movieResponseMovies = tvShowResponse.getResults();
-                    tvShow.addAll(movieResponseMovies);
-                    tvShowAdapter.setTvShows(tvShow);
+                    tvShowAdapter.setTvShows(tvShows);
                     tvShowAdapter.notifyDataSetChanged();
                 }
             }
         });
+
     }
 
 }

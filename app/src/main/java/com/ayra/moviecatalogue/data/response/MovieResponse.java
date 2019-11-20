@@ -4,7 +4,7 @@ import com.ayra.moviecatalogue.data.model.Movie;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-import java.util.List;
+import java.util.ArrayList;
 
 public class MovieResponse {
 
@@ -18,7 +18,7 @@ public class MovieResponse {
 
     @SerializedName("results")
     @Expose
-    private List<Movie> movies;
+    private ArrayList<Movie> movies;
 
     @SerializedName("total_pages")
     @Expose
@@ -40,11 +40,11 @@ public class MovieResponse {
         this.totalResults = totalResults;
     }
 
-    public List<Movie> getMovies() {
+    public ArrayList<Movie> getMovies() {
         return movies;
     }
 
-    public void setMovies(List<Movie> movies) {
+    public void setMovies(ArrayList<Movie> movies) {
         this.movies = movies;
     }
 
