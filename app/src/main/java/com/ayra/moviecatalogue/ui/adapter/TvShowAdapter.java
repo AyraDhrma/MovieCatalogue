@@ -22,7 +22,7 @@ import java.util.ArrayList;
 
 public class TvShowAdapter extends RecyclerView.Adapter<TvShowAdapter.ViewHolder> {
 
-    private Context context;
+    private final Context context;
     private ArrayList<TvShow> tvShows = new ArrayList<>();
 
     public TvShowAdapter(Context context) {

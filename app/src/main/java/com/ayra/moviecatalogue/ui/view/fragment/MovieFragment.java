@@ -33,7 +33,6 @@ public class MovieFragment extends Fragment {
     private final ArrayList<Movie> movies = new ArrayList<>();
     private MovieAdapter movieAdapter;
     private RecyclerView rvMovie;
-    private MainViewModel mainViewModel;
     private TextView tvError;
     private ShimmerFrameLayout shimmerFrameLayout;
 
@@ -79,7 +78,7 @@ public class MovieFragment extends Fragment {
     }
 
     private void displayMovie() {
-        mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        MainViewModel mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         mainViewModel.getMovie().observe(this, new Observer<MovieResponse>() {
             @Override
             public void onChanged(MovieResponse movieResponse) {

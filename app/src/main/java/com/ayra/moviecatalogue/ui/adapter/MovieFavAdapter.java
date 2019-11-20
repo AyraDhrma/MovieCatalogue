@@ -20,7 +20,7 @@ import java.util.ArrayList;
 
 public class MovieFavAdapter extends RecyclerView.Adapter<MovieFavAdapter.ViewHolder> {
 
-    private Context context;
+    private final Context context;
     private ArrayList<Movie> movies = new ArrayList<>();
 
     public MovieFavAdapter(Context context) {

@@ -15,9 +15,9 @@ import java.util.ArrayList;
 public class MainViewModel extends ViewModel {
 
     private final LiveData<TvShowResponse> tvShowResponseLiveData;
-    private MutableLiveData<ArrayList<Movie>> movie = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<Movie>> movie = new MutableLiveData<>();
     private final LiveData<MovieResponse> movieResponseLiveData;
-    private MutableLiveData<ArrayList<TvShow>> tvShows = new MutableLiveData<>();
+    private final MutableLiveData<ArrayList<TvShow>> tvShows = new MutableLiveData<>();
 
     public MainViewModel() {
         MainRepository repository = new MainRepository();
