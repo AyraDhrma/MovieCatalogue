@@ -1,4 +1,4 @@
-package com.ayra.moviecatalogue.ui.view.fragment;
+package com.ayra.moviecatalogue.ui.view.favorite;
 
 
 import android.os.Bundle;

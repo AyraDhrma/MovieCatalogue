@@ -1,4 +1,4 @@
-package com.ayra.moviecatalogue.ui.view.fragment;
+package com.ayra.moviecatalogue.ui.view.favorite;
 
 
 import android.os.Bundle;
@@ -17,7 +17,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.ayra.moviecatalogue.R;
-import com.ayra.moviecatalogue.data.model.Movie;
+import com.ayra.moviecatalogue.data.entity.Movie;
 import com.ayra.moviecatalogue.db.AppDao;
 import com.ayra.moviecatalogue.db.AppDatabase;
 import com.ayra.moviecatalogue.ui.adapter.MovieFavAdapter;

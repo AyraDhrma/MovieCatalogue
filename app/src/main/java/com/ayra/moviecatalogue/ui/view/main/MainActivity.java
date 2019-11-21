@@ -1,4 +1,4 @@
-package com.ayra.moviecatalogue.ui.view.activity;
+package com.ayra.moviecatalogue.ui.view.main;
 
 import android.app.SearchManager;
 import android.content.Context;

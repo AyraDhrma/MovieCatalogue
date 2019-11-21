@@ -1,4 +1,4 @@
-package com.ayra.moviecatalogue.ui.view.activity;
+package com.ayra.moviecatalogue.ui.view.detail;
 
 import android.database.sqlite.SQLiteException;
 import android.graphics.drawable.Drawable;
@@ -16,8 +16,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.room.Room;
 
 import com.ayra.moviecatalogue.R;
-import com.ayra.moviecatalogue.data.model.Movie;
-import com.ayra.moviecatalogue.data.model.TvShow;
+import com.ayra.moviecatalogue.data.entity.Movie;
+import com.ayra.moviecatalogue.data.entity.TvShow;
 import com.ayra.moviecatalogue.db.AppDao;
 import com.ayra.moviecatalogue.db.AppDatabase;
 import com.bumptech.glide.Glide;

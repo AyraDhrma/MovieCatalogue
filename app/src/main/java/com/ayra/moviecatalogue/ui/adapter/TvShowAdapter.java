@@ -13,8 +13,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayra.moviecatalogue.R;
-import com.ayra.moviecatalogue.data.model.TvShow;
-import com.ayra.moviecatalogue.ui.view.activity.DetailActivity;
+import com.ayra.moviecatalogue.data.entity.TvShow;
+import com.ayra.moviecatalogue.ui.view.detail.DetailActivity;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 

@@ -1,4 +1,4 @@
-package com.ayra.moviecatalogue.data.model;
+package com.ayra.moviecatalogue.data.entity;
 
 import android.os.Parcel;
 import android.os.Parcelable;

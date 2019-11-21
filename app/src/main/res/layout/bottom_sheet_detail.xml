@@ -10,7 +10,7 @@
     android:background="@drawable/background_detail"
     android:orientation="vertical"
     app:behavior_hideable="true"
-    app:behavior_peekHeight="32dp"
+    app:behavior_peekHeight="64dp"
     app:layout_behavior="com.google.android.material.bottomsheet.BottomSheetBehavior">
 
     <ImageView

@@ -1,6 +1,6 @@
 package com.ayra.moviecatalogue.data.response;
 
-import com.ayra.moviecatalogue.data.model.Movie;
+import com.ayra.moviecatalogue.data.entity.Movie;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

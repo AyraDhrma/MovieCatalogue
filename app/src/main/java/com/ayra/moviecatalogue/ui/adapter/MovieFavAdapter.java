@@ -12,7 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayra.moviecatalogue.R;
-import com.ayra.moviecatalogue.data.model.Movie;
+import com.ayra.moviecatalogue.data.entity.Movie;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
 

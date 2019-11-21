@@ -7,37 +7,37 @@
 
     <fragment
         android:id="@+id/movie_menu"
-        android:name="com.ayra.moviecatalogue.ui.view.fragment.MovieFragment"
+        android:name="com.ayra.moviecatalogue.ui.view.movie.MovieFragment"
         android:label="@string/movie"
         tools:layout="@layout/fragment_movie" />
 
     <fragment
         android:id="@+id/tv_menu"
-        android:name="com.ayra.moviecatalogue.ui.view.fragment.TvShowFragment"
+        android:name="com.ayra.moviecatalogue.ui.view.tvshow.TvShowFragment"
         android:label="@string/series"
         tools:layout="@layout/fragment_tv_show" />
 
     <activity
         android:id="@+id/detail_activity"
-        android:name="com.ayra.moviecatalogue.ui.view.activity.DetailActivity"
+        android:name="com.ayra.moviecatalogue.ui.view.detail.DetailActivity"
         android:label="Detail"
         tools:layout="@layout/activity_detail" />
 
     <fragment
         android:id="@+id/favoriteMovieFragment"
-        android:name="com.ayra.moviecatalogue.ui.view.fragment.FavoriteMovieFragment"
+        android:name="com.ayra.moviecatalogue.ui.view.favorite.FavoriteMovieFragment"
         android:label="@string/movie"
         tools:layout="@layout/fragment_favorite_movie" />
 
     <fragment
         android:id="@+id/favoriteTvShowFragment"
-        android:name="com.ayra.moviecatalogue.ui.view.fragment.FavoriteTvShowFragment"
+        android:name="com.ayra.moviecatalogue.ui.view.favorite.FavoriteTvShowFragment"
         android:label="@string/series"
         tools:layout="@layout/fragment_favorite_tv_show" />
 
     <fragment
         android:id="@+id/favorite_menu"
-        android:name="com.ayra.moviecatalogue.ui.view.fragment.MyFavoriteFragment"
+        android:name="com.ayra.moviecatalogue.ui.view.favorite.MyFavoriteFragment"
         android:label="@string/my_favorite"
         tools:layout="@layout/fragment_my_favorite" />
 

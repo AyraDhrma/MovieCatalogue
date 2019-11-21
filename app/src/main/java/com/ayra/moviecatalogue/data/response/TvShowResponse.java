@@ -1,6 +1,6 @@
 package com.ayra.moviecatalogue.data.response;
 
-import com.ayra.moviecatalogue.data.model.TvShow;
+import com.ayra.moviecatalogue.data.entity.TvShow;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 

@@ -5,8 +5,8 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
-import com.ayra.moviecatalogue.data.model.Movie;
-import com.ayra.moviecatalogue.data.model.TvShow;
+import com.ayra.moviecatalogue.data.entity.Movie;
+import com.ayra.moviecatalogue.data.entity.TvShow;
 
 import java.util.List;
 
