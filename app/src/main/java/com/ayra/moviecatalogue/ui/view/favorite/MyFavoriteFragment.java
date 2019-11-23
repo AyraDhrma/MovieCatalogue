@@ -12,7 +12,7 @@ import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.ayra.moviecatalogue.R;
-import com.ayra.moviecatalogue.ui.adapter.ViewPagerAdapter;
+import com.ayra.moviecatalogue.adapter.ViewPagerAdapter;
 import com.google.android.material.tabs.TabLayout;
 
 /**

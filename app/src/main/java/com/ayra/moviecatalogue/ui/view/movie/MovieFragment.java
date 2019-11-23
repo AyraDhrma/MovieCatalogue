@@ -17,10 +17,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayra.moviecatalogue.R;
+import com.ayra.moviecatalogue.adapter.MovieAdapter;
 import com.ayra.moviecatalogue.data.entity.Movie;
 import com.ayra.moviecatalogue.data.response.MovieResponse;
-import com.ayra.moviecatalogue.ui.adapter.MovieAdapter;
-import com.ayra.moviecatalogue.ui.viewmodel.MainViewModel;
+import com.ayra.moviecatalogue.viewmodel.MainViewModel;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
@@ -60,6 +60,7 @@ public class MovieFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        // Start Shimmer
         shimmerFrameLayout.startShimmer();
 
         // Show Movie
@@ -68,19 +69,15 @@ public class MovieFragment extends Fragment {
     }
 
     private void displayMovie() {
-        String LANGUAGE = "en-US";
-        int page = 1;
-        String API_KEY = "0a296602e2e9f2572735bf2c91763741";
         MainViewModel mainViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        int page = 1;
+        String LANGUAGE = "en-US";
+        String API_KEY = "0a296602e2e9f2572735bf2c91763741";
         mainViewModel.setMovies(API_KEY, LANGUAGE, page);
         mainViewModel.getMovies().observe(this, new Observer<MovieResponse>() {
             @Override
             public void onChanged(MovieResponse movieResponse) {
-                if (movieResponse == null) {
-                    tvError.setVisibility(View.VISIBLE);
-                    shimmerFrameLayout.stopShimmer();
-                    shimmerFrameLayout.setVisibility(View.GONE);
-                } else {
+                if (movieResponse.getMovies() != null) {
                     shimmerFrameLayout.stopShimmer();
                     shimmerFrameLayout.setVisibility(View.GONE);
                     tvError.setVisibility(View.GONE);

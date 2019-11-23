@@ -17,10 +17,10 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.ayra.moviecatalogue.R;
+import com.ayra.moviecatalogue.adapter.TvShowAdapter;
 import com.ayra.moviecatalogue.data.entity.TvShow;
 import com.ayra.moviecatalogue.data.response.TvShowResponse;
-import com.ayra.moviecatalogue.ui.adapter.TvShowAdapter;
-import com.ayra.moviecatalogue.ui.viewmodel.MainViewModel;
+import com.ayra.moviecatalogue.viewmodel.MainViewModel;
 import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
@@ -75,11 +75,7 @@ public class TvShowFragment extends Fragment {
         tvShowViewModel.getShows().observe(this, new Observer<TvShowResponse>() {
             @Override
             public void onChanged(TvShowResponse tvShowResponse) {
-                if (tvShowResponse == null) {
-                    shimmerFrameLayout.stopShimmer();
-                    shimmerFrameLayout.setVisibility(View.GONE);
-                    tvError.setVisibility(View.VISIBLE);
-                } else {
+                if (tvShowResponse.getResults() != null) {
                     shimmerFrameLayout.stopShimmer();
                     shimmerFrameLayout.setVisibility(View.GONE);
                     tvError.setVisibility(View.GONE);

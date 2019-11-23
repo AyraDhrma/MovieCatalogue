@@ -1,4 +1,4 @@
-package com.ayra.moviecatalogue.ui.adapter;
+package com.ayra.moviecatalogue.adapter;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;

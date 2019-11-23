@@ -20,6 +20,17 @@
     <string name="remove_from_favorite">Hapus Dari Favorit</string>
     <string name="slide_bottom_sheet">Slide Bottom Sheet</string>
     <string name="search">Cari</string>
-    <string name="search_hint">Masukkan text</string>
+    <string name="search_hint">Cari Film</string>
     <string name="notification">Notifikasi</string>
+    <string name="data_not_found">Data tidak ditemukan</string>
+    <string name="appwidget_text">Favoritku</string>
+    <string name="empty_widget">Kosong</string>
+    <string name="widget_banner_image">Banner Widget</string>
+    <string name="release_reminder">Pengingat Rilis Terbaru</string>
+    <string name="daily_reminder">Pengingat Aplikasi</string>
+    <string name="reminder_showing_the_movie_that_release_today">Setel pengingat untuk rilisan film terbaru</string>
+    <string name="reminder_for_return_to_app">Setel pengingat untuk aplikasi</string>
+    <string name="add_widget">Tambah widget</string>
+    <string name="on">Nyala</string>
+    <string name="off">Mati</string>
 </resources>

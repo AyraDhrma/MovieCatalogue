@@ -1,4 +1,4 @@
-package com.ayra.moviecatalogue.ui.adapter;
+package com.ayra.moviecatalogue.adapter;
 
 import android.content.Context;
 import android.content.Intent;

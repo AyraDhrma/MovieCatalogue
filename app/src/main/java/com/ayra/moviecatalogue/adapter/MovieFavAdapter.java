@@ -1,4 +1,4 @@
-package com.ayra.moviecatalogue.ui.adapter;
+package com.ayra.moviecatalogue.adapter;
 
 import android.content.Context;
 import android.content.Intent;
@@ -20,28 +20,28 @@ import com.bumptech.glide.request.RequestOptions;
 
 import java.util.ArrayList;
 
-public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> {
+public class MovieFavAdapter extends RecyclerView.Adapter<MovieFavAdapter.ViewHolder> {
 
-    private ArrayList<Movie> movies = new ArrayList<>();
     private final Context context;
+    private ArrayList<Movie> movies = new ArrayList<>();
 
-    public MovieAdapter(Context context) {
+    public MovieFavAdapter(Context context) {
         this.context = context;
     }
 
-    public void setMovies(ArrayList<Movie> movies) {
-        this.movies = movies;
+    public void setFavMovies(ArrayList<Movie> favMovies) {
+        this.movies = favMovies;
     }
 
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movie_list, parent, false);
+        View view = LayoutInflater.from(context).inflate(R.layout.item_favorite_list, parent, false);
         return new ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         Movie movie = movies.get(position);
         String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/w500";
         Glide.with(context)
@@ -64,8 +64,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
         final TextView tvDate;
         final RatingBar ratingBar;
 
-        ViewHolder(View itemView) {
+        ViewHolder(@NonNull View itemView) {
             super(itemView);
+
             ivPoster = itemView.findViewById(R.id.image_movie);
             ivPoster.setClipToOutline(true);
             tvTitle = itemView.findViewById(R.id.title_movie);
@@ -80,6 +81,5 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.ViewHolder> 
                 }
             });
         }
-
     }
 }

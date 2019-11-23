@@ -21,6 +21,18 @@
     <string name="remove_from_favorite">Remove From Favorite</string>
     <string name="slide_bottom_sheet">Slide Bottom Sheet</string>
     <string name="search">Search</string>
-    <string name="search_hint">Search here</string>
+    <string name="search_hint">Search Movie</string>
     <string name="notification">Notification</string>
+    <string name="data_not_found">Data not found</string>
+    <string name="appwidget_text">My Favorite</string>
+    <string name="empty_widget">No Data</string>
+    <string name="widget_banner_image">Widget Banner Image</string>
+    <string name="add_widget">Add widget</string>
+    <string name="release_reminder">Release Reminder</string>
+    <string name="daily_reminder">Daily Reminder</string>
+    <string name="reminder_showing_the_movie_that_release_today">Reminder showing the movie that release today</string>
+    <string name="reminder_for_return_to_app">Reminder for return to app</string>
+    <string name="default_notification_channel_id" translatable="false">default_channel</string>
+    <string name="on">On</string>
+    <string name="off">Off</string>
 </resources>

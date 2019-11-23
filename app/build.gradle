@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
@@ -16,6 +17,12 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
+        android {
+            compileOptions {
+                sourceCompatibility JavaVersion.VERSION_1_8
+                targetCompatibility JavaVersion.VERSION_1_8
+            }
+        }
     }
 }
 
@@ -30,9 +37,12 @@ dependencies {
 
     // Misc
     implementation "androidx.cardview:cardview:$rootProject.cardVersion"
-    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
-    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
     implementation "com.facebook.shimmer:shimmer:$rootProject.shimmerVersion"
+    implementation "com.github.bumptech.glide:glide:$rootProject.glideVersion"
+    implementation 'com.google.firebase:firebase-messaging:17.3.4'
+    annotationProcessor "com.github.bumptech.glide:compiler:$rootProject.glideVersion"
+    implementation "com.jakewharton:butterknife:$rootProject.butterKnifeVersion"
+    annotationProcessor "com.jakewharton:butterknife-compiler:$rootProject.butterKnifeCompilerVersion"
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment:$rootProject.navigationVersion"

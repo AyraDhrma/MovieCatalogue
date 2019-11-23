@@ -17,11 +17,11 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.Room;
 
 import com.ayra.moviecatalogue.R;
+import com.ayra.moviecatalogue.adapter.TvShowFavAdapter;
 import com.ayra.moviecatalogue.data.entity.TvShow;
 import com.ayra.moviecatalogue.db.AppDao;
 import com.ayra.moviecatalogue.db.AppDatabase;
-import com.ayra.moviecatalogue.ui.adapter.TvShowFavAdapter;
-import com.ayra.moviecatalogue.ui.viewmodel.MainViewModel;
+import com.ayra.moviecatalogue.viewmodel.MainViewModel;
 
 import java.util.ArrayList;
 import java.util.Objects;

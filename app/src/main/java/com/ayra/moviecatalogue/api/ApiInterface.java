@@ -23,4 +23,8 @@ public interface ApiInterface {
             @Query("page") int page
     );
 
+    @GET("search/multi")
+    Call<MovieResponse> searchMovies(
+            @Query("query") String query);
+
 }

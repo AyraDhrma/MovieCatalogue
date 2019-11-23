@@ -12,6 +12,11 @@
         android:title="@string/series" />
 
     <item
+        android:id="@+id/search_menu"
+        android:icon="@drawable/ic_search"
+        android:title="@string/search" />
+
+    <item
         android:id="@+id/favorite_menu"
         android:icon="@drawable/ic_favorite_24dp"
         android:title="@string/my_favorite" />

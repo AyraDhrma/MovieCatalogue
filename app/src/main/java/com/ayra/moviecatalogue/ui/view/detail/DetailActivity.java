@@ -1,5 +1,7 @@
 package com.ayra.moviecatalogue.ui.view.detail;
 
+import android.appwidget.AppWidgetManager;
+import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -111,8 +113,7 @@ public class DetailActivity extends AppCompatActivity {
             public void onClick(View view) {
                 if (movie != null) {
                     if (appDao.getMovieByTitle(movie.getTitle()) != null) {
-                        appDao.deleteMovieById(movie.getId());
-                        setFavoriteFalse();
+                        deleteFromRoom();
                         Toast.makeText(DetailActivity.this, getResources().getString(R.string.remove_from_favorite), Toast.LENGTH_SHORT).show();
                     } else {
                         insertToRoom();
@@ -120,8 +121,7 @@ public class DetailActivity extends AppCompatActivity {
                     }
                 } else if (tvShow != null) {
                     if (appDao.getShowByTitle(tvShow.getName()) != null) {
-                        appDao.deleteShowById(tvShow.getId());
-                        setFavoriteFalse();
+                        deleteFromRoom();
                         Toast.makeText(DetailActivity.this, getResources().getString(R.string.remove_from_favorite), Toast.LENGTH_SHORT).show();
                     } else {
                         insertToRoom();
@@ -137,9 +137,35 @@ public class DetailActivity extends AppCompatActivity {
             if (movie != null) {
                 appDao.insertFavMovie(movie);
                 setFavoriteTrue();
+                setResult(RESULT_OK);
+                Intent bcIntent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+                sendBroadcast(bcIntent);
             } else if (tvShow != null) {
                 appDao.insertFavShow(tvShow);
                 setFavoriteTrue();
+                setResult(RESULT_OK);
+                Intent bcIntent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+                sendBroadcast(bcIntent);
+            }
+        } catch (SQLiteException e) {
+            Toast.makeText(DetailActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private void deleteFromRoom() {
+        try {
+            if (movie != null) {
+                appDao.deleteMovieById(movie.getId());
+                setFavoriteFalse();
+                setResult(RESULT_OK);
+                Intent bcIntent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+                sendBroadcast(bcIntent);
+            } else if (tvShow != null) {
+                appDao.deleteShowById(tvShow.getId());
+                setFavoriteFalse();
+                setResult(RESULT_OK);
+                Intent bcIntent = new Intent(AppWidgetManager.ACTION_APPWIDGET_UPDATE);
+                sendBroadcast(bcIntent);
             }
         } catch (SQLiteException e) {
             Toast.makeText(DetailActivity.this, e.getLocalizedMessage(), Toast.LENGTH_SHORT).show();
