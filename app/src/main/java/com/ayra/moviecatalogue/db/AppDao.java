@@ -1,5 +1,7 @@
 package com.ayra.moviecatalogue.db;
 
+import android.database.Cursor;
+
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
@@ -36,5 +38,11 @@ public interface AppDao {
 
     @Query("SELECT name FROM tvshow WHERE name = :name")
     String getShowByTitle(String name);
+
+    @Query("SELECT * FROM movie")
+    Cursor selectAllMovie();
+
+    @Query("SELECT * FROM movie where id = :id")
+    Cursor selectMovieById(String id);
 
 }

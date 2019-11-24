@@ -15,7 +15,7 @@ import android.util.Log;
 import androidx.core.app.NotificationCompat;
 
 import com.ayra.moviecatalogue.R;
-import com.ayra.moviecatalogue.ui.view.notificationsetting.NotificationSettingActivity;
+import com.ayra.moviecatalogue.ui.view.main.MainActivity;
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 
@@ -34,15 +34,15 @@ public class FirebaseReminderNotification extends FirebaseMessagingService {
         super.onMessageReceived(remoteMessage);
 
         if (remoteMessage.getNotification() != null) {
-            sendNotification(remoteMessage.getNotification().getBody());
+            sendNotification(remoteMessage.getNotification().getBody(), remoteMessage.getNotification().getTitle());
         }
     }
 
-    private void sendNotification(String body) {
+    private void sendNotification(String body, String title) {
         String channelId = getString(R.string.default_notification_channel_id);
         String channelName = getString(R.string.app_name);
 
-        Intent intent = new Intent(this, NotificationSettingActivity.class);
+        Intent intent = new Intent(this, MainActivity.class);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(this, 0, intent, PendingIntent.FLAG_ONE_SHOT);
 
@@ -51,9 +51,11 @@ public class FirebaseReminderNotification extends FirebaseMessagingService {
                 .setLargeIcon(BitmapFactory.decodeResource(this.getResources(),
                         R.mipmap.ic_launcher_new))
                 .setSmallIcon(R.mipmap.ic_launcher_new)
+                .setContentTitle(title)
                 .setContentText(body)
                 .setAutoCancel(true)
                 .setSound(defaultSound)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
                 .setContentIntent(pendingIntent);
 
         NotificationManager notificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);

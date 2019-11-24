@@ -27,4 +27,9 @@ public interface ApiInterface {
     Call<MovieResponse> searchMovies(
             @Query("query") String query);
 
+    @GET("discover/movie")
+    Call<MovieResponse> getReleasedMovies(
+            @Query("primary_release_date.gte") String date,
+            @Query("primary_release_date.lte") String today);
+
 }

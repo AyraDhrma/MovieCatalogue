@@ -12,6 +12,7 @@ import androidx.appcompat.widget.SwitchCompat;
 import androidx.appcompat.widget.Toolbar;
 
 import com.ayra.moviecatalogue.R;
+import com.ayra.moviecatalogue.notification.NewReleaseNotification;
 import com.google.firebase.messaging.FirebaseMessaging;
 
 import butterknife.BindView;
@@ -21,21 +22,35 @@ public class NotificationSettingActivity extends AppCompatActivity {
 
     @BindView(R.id.switch_reminder)
     SwitchCompat reminderSwitch;
+    @BindView(R.id.switch_release)
+    SwitchCompat releaseSwitch;
     @BindView(R.id.toolbar_detail)
     Toolbar toolbar;
 
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor sharedEditor;
+    private NewReleaseNotification newReleaseNotification;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_setting);
 
-        String SHARED_PREF = "reminder";
+        newReleaseNotification = new NewReleaseNotification(this);
+        String SHARED_PREF = "shared_preferences";
         sharedPreferences = getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
         ButterKnife.bind(this);
 
+        // Set Action Bar
+        setUpActionBar();
+
+        checkSwitch();
+
+        switchListener();
+
+    }
+
+    private void setUpActionBar() {
         if (getSupportActionBar() == null) {
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -44,9 +59,16 @@ public class NotificationSettingActivity extends AppCompatActivity {
             getSupportActionBar().setDisplayShowTitleEnabled(false);
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         }
+    }
 
-        checkSwitch();
+    private void checkSwitch() {
+        boolean reminderCondition = sharedPreferences.getBoolean("daily_reminder", false);
+        boolean releaseCondition = sharedPreferences.getBoolean("release_reminder", false);
+        reminderSwitch.setChecked(reminderCondition);
+        releaseSwitch.setChecked(releaseCondition);
+    }
 
+    private void switchListener() {
         reminderSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
             sharedEditor = sharedPreferences.edit();
             sharedEditor.putBoolean("daily_reminder", isChecked);
@@ -67,11 +89,26 @@ public class NotificationSettingActivity extends AppCompatActivity {
                         Toast.LENGTH_SHORT).show();
             }
         });
-    }
-
-    private void checkSwitch() {
-        boolean reminderCondition = sharedPreferences.getBoolean("daily_reminder", false);
-        reminderSwitch.setChecked(reminderCondition);
+        releaseSwitch.setOnCheckedChangeListener((compoundButton, isChecked) -> {
+            sharedEditor = sharedPreferences.edit();
+            sharedEditor.putBoolean("release_reminder", isChecked);
+            sharedEditor.apply();
+            if (isChecked) {
+                newReleaseNotification.setUpRelease();
+                String titleMsg = getString(R.string.notification);
+                String msg = getString(R.string.on);
+                Toast.makeText(NotificationSettingActivity.this,
+                        titleMsg + " : " + msg,
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                newReleaseNotification.cancelReleaseNotification(getApplicationContext());
+                String titleMsg = getString(R.string.notification);
+                String msg = getString(R.string.off);
+                Toast.makeText(NotificationSettingActivity.this,
+                        titleMsg + " : " + msg,
+                        Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
     @Override
@@ -83,4 +120,5 @@ public class NotificationSettingActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

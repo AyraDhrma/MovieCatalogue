@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     package="com.ayra.moviecatalogue">
 
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <permission
+        android:name="com.ayra.moviecatalogue.READ_DATABASE"
+        android:protectionLevel="normal" />
 
     <application
         android:allowBackup="true"
@@ -12,11 +15,18 @@
         android:roundIcon="@mipmap/ic_launcher_new_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
-        android:usesCleartextTraffic="true">
+        android:usesCleartextTraffic="true"
+        tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
 
-        <activity android:name=".ui.view.notificationsetting.NotificationSettingActivity"></activity>
+        <provider
+            android:name=".provider.FavoriteProvider"
+            android:authorities="com.ayra.moviecatalogue"
+            android:enabled="true"
+            android:exported="true"
+            android:multiprocess="true"></provider>
+
+        <activity android:name=".ui.view.notificationsetting.NotificationSettingActivity" />
         <activity android:name=".ui.view.detail.DetailActivity" />
-
         <activity
             android:name=".ui.view.main.MainActivity"
             android:windowSoftInputMode="adjustPan">
@@ -27,6 +37,11 @@
             </intent-filter>
         </activity>
 
+        <receiver
+            android:name=".notification.NewReleaseNotification"
+            android:enabled="true"
+            android:exported="false" />
+
         <receiver android:name=".widget.FavSeriesWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -36,6 +51,7 @@
                 android:name="android.appwidget.provider"
                 android:resource="@xml/fav_series_widget_info" />
         </receiver>
+
         <receiver android:name=".widget.FavMovieWidget">
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
@@ -67,6 +83,7 @@
         <service
             android:name=".widget.FavMovieWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
+
         <service
             android:name=".widget.FavSeriesWidgetService"
             android:permission="android.permission.BIND_REMOTEVIEWS" />
