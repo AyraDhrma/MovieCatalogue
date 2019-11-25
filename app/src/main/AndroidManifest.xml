@@ -18,13 +18,6 @@
         android:usesCleartextTraffic="true"
         tools:ignore="GoogleAppIndexingWarning,UnusedAttribute">
 
-        <provider
-            android:name=".provider.FavoriteProvider"
-            android:authorities="com.ayra.moviecatalogue"
-            android:enabled="true"
-            android:exported="true"
-            android:multiprocess="true"></provider>
-
         <activity android:name=".ui.view.notificationsetting.NotificationSettingActivity" />
         <activity android:name=".ui.view.detail.DetailActivity" />
         <activity
@@ -39,8 +32,7 @@
 
         <receiver
             android:name=".notification.NewReleaseNotification"
-            android:enabled="true"
-            android:exported="false" />
+            android:enabled="true" />
 
         <receiver android:name=".widget.FavSeriesWidget">
             <intent-filter>
@@ -71,6 +63,13 @@
         <meta-data
             android:name="com.google.firebase.messaging.default_notification_channel_id"
             android:value="@string/default_notification_channel_id" />
+
+        <provider
+            android:name=".provider.FavoriteProvider"
+            android:authorities="com.ayra.moviecatalogue"
+            android:enabled="true"
+            android:exported="true"
+            android:multiprocess="true" />
 
         <service
             android:name=".notification.FirebaseReminderNotification"

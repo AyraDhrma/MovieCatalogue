@@ -36,10 +36,11 @@ public class NotificationSettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_setting);
 
-        newReleaseNotification = new NewReleaseNotification(this.getApplicationContext());
+        ButterKnife.bind(this);
+
         String SHARED_PREF = "shared_preferences";
         sharedPreferences = getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
-        ButterKnife.bind(this);
+        newReleaseNotification = new NewReleaseNotification(this);
 
         // Set Action Bar
         setUpActionBar();
@@ -74,9 +75,9 @@ public class NotificationSettingActivity extends AppCompatActivity {
         }
         releaseSwitch.setChecked(releaseCondition);
         if (!releaseCondition) {
-            newReleaseNotification.cancelReleaseNotification(getApplicationContext());
+            newReleaseNotification.turnOffReleaseReminder(getApplicationContext());
         } else {
-            newReleaseNotification.setUpRelease();
+            newReleaseNotification.setUpReleaseReminder();
         }
     }
 
@@ -106,14 +107,14 @@ public class NotificationSettingActivity extends AppCompatActivity {
             sharedEditor.putBoolean("release_reminder", isChecked);
             sharedEditor.apply();
             if (isChecked) {
-                newReleaseNotification.setUpRelease();
+                newReleaseNotification.setUpReleaseReminder();
                 String titleMsg = getString(R.string.notification);
                 String msg = getString(R.string.on);
                 Toast.makeText(NotificationSettingActivity.this,
                         titleMsg + " : " + msg,
                         Toast.LENGTH_SHORT).show();
             } else {
-                newReleaseNotification.cancelReleaseNotification(getApplicationContext());
+                newReleaseNotification.turnOffReleaseReminder(getApplicationContext());
                 String titleMsg = getString(R.string.notification);
                 String msg = getString(R.string.off);
                 Toast.makeText(NotificationSettingActivity.this,
