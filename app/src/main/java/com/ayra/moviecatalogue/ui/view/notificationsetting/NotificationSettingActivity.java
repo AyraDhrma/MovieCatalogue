@@ -36,7 +36,7 @@ public class NotificationSettingActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_notification_setting);
 
-        newReleaseNotification = new NewReleaseNotification(this);
+        newReleaseNotification = new NewReleaseNotification(this.getApplicationContext());
         String SHARED_PREF = "shared_preferences";
         sharedPreferences = getSharedPreferences(SHARED_PREF, Context.MODE_PRIVATE);
         ButterKnife.bind(this);
@@ -44,8 +44,10 @@ public class NotificationSettingActivity extends AppCompatActivity {
         // Set Action Bar
         setUpActionBar();
 
+        // Check User Switch Compat Condition
         checkSwitch();
 
+        // Listener On Switch
         switchListener();
 
     }
@@ -65,7 +67,17 @@ public class NotificationSettingActivity extends AppCompatActivity {
         boolean reminderCondition = sharedPreferences.getBoolean("daily_reminder", false);
         boolean releaseCondition = sharedPreferences.getBoolean("release_reminder", false);
         reminderSwitch.setChecked(reminderCondition);
+        if (!reminderCondition) {
+            FirebaseMessaging.getInstance().unsubscribeFromTopic("reminder");
+        } else {
+            FirebaseMessaging.getInstance().subscribeToTopic("reminder");
+        }
         releaseSwitch.setChecked(releaseCondition);
+        if (!releaseCondition) {
+            newReleaseNotification.cancelReleaseNotification(getApplicationContext());
+        } else {
+            newReleaseNotification.setUpRelease();
+        }
     }
 
     private void switchListener() {

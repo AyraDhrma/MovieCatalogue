@@ -12,6 +12,7 @@ import android.graphics.BitmapFactory;
 import android.media.RingtoneManager;
 import android.net.Uri;
 import android.os.Build;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.core.app.NotificationCompat;
@@ -33,49 +34,49 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static android.content.Context.ALARM_SERVICE;
+
 public class NewReleaseNotification extends BroadcastReceiver {
 
     private static final String EXTRA_NOTIFICATION = "extra_notification";
-    private static final int REQUEST_CODE = 1;
+    public static final String TYPE_NOTIFICATION = "release";
+    public static final String TAG = NewReleaseNotification.class.getSimpleName();
+    private static final int REQUEST_CODE = 100;
     private Context context;
-    private ApiInterface apiInterface = ApiService.getService().create(ApiInterface.class);
+
+    public NewReleaseNotification() {
+    }
 
     public NewReleaseNotification(Context context) {
         this.context = context;
     }
 
-    private Intent getRelease() {
-        Intent intent = new Intent(context, NewReleaseNotification.class);
-        intent.putExtra(EXTRA_NOTIFICATION, "release");
-        return intent;
-    }
-
-    private Calendar getTime() {
-        Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 8);
-        calendar.set(Calendar.MINUTE, 0);
-        calendar.set(Calendar.SECOND, 0);
-
-        if (calendar.before(Calendar.getInstance())) {
-            calendar.add(Calendar.DATE, 1);
-        }
-
-        return calendar;
-    }
-
     public void setUpRelease() {
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, REQUEST_CODE, getRelease(), 0);
+        Intent intent = new Intent(context, MainActivity.class);
+        intent.putExtra(EXTRA_NOTIFICATION, TYPE_NOTIFICATION);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
 
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 11);
+        calendar.set(Calendar.MINUTE, 15);
+        calendar.set(Calendar.SECOND, 0);
+
         if (alarmManager != null) {
-            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, getTime().getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
+            alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
+                    AlarmManager.INTERVAL_DAY, pendingIntent);
         }
+
+        Log.d(TAG, "setUpRelease " + calendar.getTimeInMillis());
     }
 
     private void getReleaseToday(final Context context) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        Date date = new Date();
-        final String now = dateFormat.format(date);
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
+        String now = dateFormat.format(new Date());
+        ApiInterface apiInterface = ApiService.getService().create(ApiInterface.class);
 
         Call<MovieResponse> call = apiInterface.getReleasedMovies(now, now);
         call.enqueue(new Callback<MovieResponse>() {
@@ -89,6 +90,7 @@ public class NewReleaseNotification extends BroadcastReceiver {
                             String titleMovie = movie.getTitle();
                             String descMovie = titleMovie + " " + context.getString(R.string.release_message);
                             showReleaseNotification(context, titleMovie, descMovie, idMovie);
+                            Log.d(TAG, "onResponse: " + descMovie);
                             idMovie++;
                         }
                     }
@@ -107,7 +109,8 @@ public class NewReleaseNotification extends BroadcastReceiver {
         String CHANNEL_NAME = "channel_name";
 
         Intent intent = new Intent(context, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, id, intent, PendingIntent.FLAG_ONE_SHOT);
 
         Uri defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
@@ -129,27 +132,36 @@ public class NewReleaseNotification extends BroadcastReceiver {
             if (notificationManager != null) {
                 notificationManager.createNotificationChannel(notificationChannel);
             }
+            Log.d(TAG, "showReleaseNotification: notify android O+");
         } else {
             Notification notification = builder.build();
             if (notificationManager != null) {
-                notificationManager.notify(0, notification);
+                notificationManager.notify(id, notification);
             }
+            Log.d(TAG, "showReleaseNotification: notify");
         }
     }
 
     public void cancelReleaseNotification(Context context) {
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
+        AlarmManager alarmManager = (AlarmManager) context.getSystemService(ALARM_SERVICE);
         Intent intent = new Intent(context, NewReleaseNotification.class);
         PendingIntent pendingIntent = PendingIntent.getBroadcast(context, REQUEST_CODE, intent, 0);
         pendingIntent.cancel();
         if (alarmManager != null) {
             alarmManager.cancel(pendingIntent);
         }
+        Log.d(TAG, "cancelReleaseNotification");
     }
 
     @Override
     public void onReceive(Context context, Intent intent) {
-        getReleaseToday(context);
+        Log.d(TAG, "onReceive");
+        String extra = intent.getStringExtra(EXTRA_NOTIFICATION);
+        Log.d(TAG, "onReceive" + extra);
+        if (extra != null && extra.equals(TYPE_NOTIFICATION)) {
+            getReleaseToday(context);
+            Log.d(TAG, "onReceive");
+        }
+        Log.d(TAG, "onReceive");
     }
-
 }

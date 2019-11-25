@@ -51,6 +51,8 @@ public class FavSeriesWidget extends AppWidgetProvider {
     @Override
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
+
+        // Get Widget Update From Detail Activity
         if (intent.getAction() != null) {
             if (intent.getAction().equals(AppWidgetManager.ACTION_APPWIDGET_UPDATE)) {
                 AppWidgetManager manager = AppWidgetManager.getInstance(context);
