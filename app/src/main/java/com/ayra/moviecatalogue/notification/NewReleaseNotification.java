@@ -67,13 +67,10 @@ public class NewReleaseNotification extends BroadcastReceiver {
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.HOUR_OF_DAY, 12);
-        calendar.set(Calendar.MINUTE, 28);
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, 8);
+        calendar.set(Calendar.MINUTE, 0);
         calendar.set(Calendar.SECOND, 0);
-
-        if (calendar.before(Calendar.getInstance())) {
-            calendar.add(Calendar.DATE, 1);
-        }
 
         if (alarmManager != null) {
             alarmManager.setInexactRepeating(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), AlarmManager.INTERVAL_DAY, pendingIntent);
@@ -82,9 +79,9 @@ public class NewReleaseNotification extends BroadcastReceiver {
     }
 
     private void getReleaseToday(final Context context) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd", Locale.getDefault());
-        Date date = new Date();
-        final String now = dateFormat.format(date);
+        String pattern = "yyyy-MM-dd";
+        SimpleDateFormat dateFormat = new SimpleDateFormat(pattern, Locale.getDefault());
+        final String now = dateFormat.format(new Date());
 
         ApiInterface apiInterface = ApiService.getService().create(ApiInterface.class);
         Call<MovieResponse> call = apiInterface.getReleasedMovies(now, now);
@@ -115,36 +112,37 @@ public class NewReleaseNotification extends BroadcastReceiver {
     }
 
     private void showReleaseToday(Context context, String title, String desc, int id) {
-        String CHANNEL_ID = "Channel_2";
-        String CHANNEL_NAME = "Today release channel";
+        String CHANNEL_ID = "channel_01";
+        String CHANNEL_NAME = "channel_name";
 
         Intent intent = new Intent(context, MainActivity.class);
-        PendingIntent pendingIntent = PendingIntent.getActivity(context, id, intent,
-                PendingIntent.FLAG_UPDATE_CURRENT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
-        Uri uriRingtone = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
-        NotificationManager mNotificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
-        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(context, CHANNEL_ID)
-                .setSmallIcon(R.drawable.favorite_movie)
-                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(), R.drawable.favorite_movie))
+        Uri defaultSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
+        NotificationCompat.Builder builder = new NotificationCompat.Builder(context, CHANNEL_ID)
+                .setLargeIcon(BitmapFactory.decodeResource(context.getResources(),
+                        R.mipmap.ic_launcher_new))
+                .setSmallIcon(R.mipmap.ic_launcher_new)
                 .setContentTitle(title)
                 .setContentText(desc)
-                .setContentIntent(pendingIntent)
                 .setAutoCancel(true)
-                .setSound(uriRingtone)
-                .setPriority(NotificationCompat.PRIORITY_DEFAULT);
-        Notification notification = mBuilder.build();
+                .setSound(defaultSound)
+                .setPriority(NotificationCompat.PRIORITY_DEFAULT)
+                .setContentIntent(pendingIntent);
+
+        NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
-
-            NotificationChannel channel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
-            mBuilder.setChannelId(CHANNEL_ID);
-
-            if (mNotificationManager != null) {
-                mNotificationManager.createNotificationChannel(channel);
+            NotificationChannel notificationChannel = new NotificationChannel(CHANNEL_ID, CHANNEL_NAME, NotificationManager.IMPORTANCE_DEFAULT);
+            builder.setChannelId(CHANNEL_ID);
+            if (notificationManager != null) {
+                notificationManager.createNotificationChannel(notificationChannel);
             }
-        }
-        if (mNotificationManager != null) {
-            mNotificationManager.notify(id, notification);
+        } else {
+            Notification notification = builder.build();
+            if (notificationManager != null) {
+                notificationManager.notify(id, notification);
+            }
         }
     }
 

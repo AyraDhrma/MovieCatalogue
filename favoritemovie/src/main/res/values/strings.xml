@@ -3,37 +3,10 @@
     <string name="image_movie">ImageMovie</string>
     <string name="title_movie">Title Movie</string>
     <string name="date_movie">Date Movie</string>
-    <string name="overview">Overview</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="tab2">TV Show</string>
-    <string name="tab1">Movie</string>
-    <string name="change_language">Change Language</string>
-    <string name="failed_to_load_data">Failed To Load Data</string>
     <string name="rating_movie">Rating Movie</string>
-    <string name="favorite_button">Favorite Button</string>
-    <string name="movie">Movie</string>
-    <string name="series">Series</string>
-    <string name="my_favorite">My Favorite</string>
 
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="add_to_myfavorite">Add To MyFavorite</string>
-    <string name="remove_from_favorite">Remove From Favorite</string>
-    <string name="slide_bottom_sheet">Slide Bottom Sheet</string>
-    <string name="search">Search</string>
-    <string name="search_hint">Search Movie</string>
-    <string name="notification">Notification</string>
     <string name="data_not_found">Data not found</string>
-    <string name="appwidget_text">My Favorite</string>
-    <string name="empty_widget">No Data</string>
-    <string name="widget_banner_image">Widget Banner Image</string>
-    <string name="add_widget">Add widget</string>
-    <string name="release_reminder">Release Reminder</string>
-    <string name="daily_reminder">Daily Reminder</string>
-    <string name="reminder_showing_the_movie_that_release_today">Reminder showing the movie that release today</string>
-    <string name="reminder_for_return_to_app">Reminder for return to app</string>
-    <string name="default_notification_channel_id" translatable="false">default_channel</string>
-    <string name="on">On</string>
-    <string name="off">Off</string>
-    <string name="release_message">has been release today</string>
 </resources>

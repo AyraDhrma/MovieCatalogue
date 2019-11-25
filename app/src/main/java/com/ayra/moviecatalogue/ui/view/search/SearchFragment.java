@@ -20,15 +20,21 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * A simple {@link Fragment} subclass.
  */
 public class SearchFragment extends Fragment {
 
     private SearchAdapter searchAdapter;
-    private ShimmerFrameLayout shimmer;
-    private RecyclerView rvResult;
-    private TextView tvError;
+    @BindView(R.id.shimmer_container)
+    ShimmerFrameLayout shimmer;
+    @BindView(R.id.rv_result)
+    RecyclerView rvResult;
+    @BindView(R.id.error_data_not_load)
+    TextView tvError;
     private String query;
     private Observer<ArrayList<Movie>> getResult = new Observer<ArrayList<Movie>>() {
         @Override
@@ -57,7 +63,7 @@ public class SearchFragment extends Fragment {
         // Inflate the layout for this fragment
         View view = inflater.inflate(R.layout.fragment_search, container, false);
 
-        initUI(view);
+        ButterKnife.bind(this, view);
 
         // Setup RecyclerView
         setUpRecyclerView();
@@ -84,12 +90,6 @@ public class SearchFragment extends Fragment {
         searchAdapter = new SearchAdapter(getActivity());
         rvResult.setAdapter(searchAdapter);
         shimmer.startShimmer();
-    }
-
-    private void initUI(View view) {
-        shimmer = view.findViewById(R.id.shimmer_container);
-        rvResult = view.findViewById(R.id.rv_result);
-        tvError = view.findViewById(R.id.error_data_not_load);
     }
 
 }

@@ -27,27 +27,41 @@ import com.bumptech.glide.request.RequestOptions;
 import com.google.android.material.bottomsheet.BottomSheetBehavior;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class DetailActivity extends AppCompatActivity {
 
     public static final String EXTRA_MOVIE = "extra_movie";
     public static final String EXTRA_SHOW = "extra_show";
     private final String IMAGE_BASE_URL = "http://image.tmdb.org/t/p/w500";
-    private ImageView ivBackground;
-    private TextView tvTitle;
-    private TextView tvOverview;
-    private TextView tvDate;
+    @BindView(R.id.image_movie_detail)
+    ImageView ivBackground;
+    @BindView(R.id.title_detail)
+    TextView tvTitle;
+    @BindView(R.id.overview_detail)
+    TextView tvOverview;
+    @BindView(R.id.date_detail)
+    TextView tvDate;
     private AppDao appDao;
     private Movie movie;
     private TvShow tvShow;
-    private TextView tvError;
-    private FloatingActionButton btnFav;
+    @BindView(R.id.error_data_not_load)
+    TextView tvError;
+    @BindView(R.id.btn_favorite)
+    FloatingActionButton btnFav;
     private BottomSheetBehavior bottomSheetBehavior;
-    private ImageView slideArrow;
+    @BindView(R.id.slide_arrow)
+    ImageView slideArrow;
+    @BindView(R.id.bottom_sheet)
+    LinearLayout bottomSheetLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail);
+
+        ButterKnife.bind(this);
 
         // Set UI
         initUI();
@@ -61,7 +75,7 @@ public class DetailActivity extends AppCompatActivity {
         // Create Room
         createRoom();
 
-        // Check Condition Favorit
+        // Check Condition Favorite
         checkFavorite();
 
         // Button Favorite Listener
@@ -180,14 +194,6 @@ public class DetailActivity extends AppCompatActivity {
     }
 
     private void initUI() {
-        tvError = findViewById(R.id.error_data_not_load);
-        ivBackground = findViewById(R.id.image_movie_detail);
-        tvTitle = findViewById(R.id.title_detail);
-        tvDate = findViewById(R.id.date_detail);
-        tvOverview = findViewById(R.id.overview_detail);
-        btnFav = findViewById(R.id.btn_favorite);
-        slideArrow = findViewById(R.id.slide_arrow);
-        LinearLayout bottomSheetLayout = findViewById(R.id.bottom_sheet);
         bottomSheetBehavior = BottomSheetBehavior.from(bottomSheetLayout);
     }
 

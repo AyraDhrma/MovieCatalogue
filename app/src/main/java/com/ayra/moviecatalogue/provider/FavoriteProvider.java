@@ -23,6 +23,7 @@ public class FavoriteProvider extends ContentProvider {
     public static final int FAVORITE_ID = 2;
     private static final UriMatcher uriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
 
+    // Create Uri Matcher
     static {
         uriMatcher.addURI(AUTHORITY, TABLE_NAME, FAVORITE);
         uriMatcher.addURI(AUTHORITY, TABLE_NAME + "/#", FAVORITE_ID);
@@ -38,6 +39,7 @@ public class FavoriteProvider extends ContentProvider {
         return true;
     }
 
+    // Query Select All For Provider
     @Nullable
     @Override
     public Cursor query(@NonNull Uri uri, @Nullable String[] strings, @Nullable String s, @Nullable String[] strings1, @Nullable String s1) {

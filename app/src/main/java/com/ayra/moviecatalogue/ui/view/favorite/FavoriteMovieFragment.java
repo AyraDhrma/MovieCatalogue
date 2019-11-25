@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -26,14 +25,19 @@ import com.ayra.moviecatalogue.viewmodel.MainViewModel;
 import java.util.ArrayList;
 import java.util.Objects;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class FavoriteMovieFragment extends Fragment {
 
-    private RecyclerView rvFavMovie;
-    private TextView tvError;
+    @BindView(R.id.rv_movie)
+    RecyclerView rvFavMovie;
+    @BindView(R.id.error_data_not_load)
+    TextView tvError;
     private MovieFavAdapter movieFavAdapter;
     private AppDao appDao;
 
@@ -45,15 +49,11 @@ public class FavoriteMovieFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_favorite_movie, container, false);
-    }
+        View view = inflater.inflate(R.layout.fragment_favorite_movie, container, false);
 
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this, view);
 
-        rvFavMovie = view.findViewById(R.id.rv_movie);
-        tvError = view.findViewById(R.id.error_data_not_load);
+        return view;
     }
 
     @Override

@@ -21,9 +21,15 @@ import com.ayra.moviecatalogue.ui.view.search.SearchFragment;
 import com.ayra.moviecatalogue.ui.view.tvshow.TvShowFragment;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends AppCompatActivity implements BottomNavigationView.OnNavigationItemSelectedListener, SearchView.OnQueryTextListener {
 
-    private BottomNavigationView bottomNavigationView;
+    @BindView(R.id.bottom_navigation_main)
+    BottomNavigationView bottomNavigationView;
+    @BindView(R.id.toolbar_main)
+    Toolbar toolbar;
     private SearchView searchView;
 
     @Override
@@ -31,12 +37,12 @@ public class MainActivity extends AppCompatActivity implements BottomNavigationV
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        ButterKnife.bind(this);
+
         // Set Toolbar
-        Toolbar toolbar = findViewById(R.id.toolbar_main);
         setSupportActionBar(toolbar);
 
         // Set Bottom Navigation
-        bottomNavigationView = findViewById(R.id.bottom_navigation_main);
         bottomNavigationView.setOnNavigationItemSelectedListener(this);
 
         // Setup HomeFragment

@@ -43,7 +43,6 @@
         tools:text="2016-07-27" />
 
     <TextView
-        android:id="@+id/text_overview"
         style="@style/TextSubTitle"
         android:text="@string/overview" />
 

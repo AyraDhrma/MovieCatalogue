@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
@@ -25,6 +24,9 @@ import com.facebook.shimmer.ShimmerFrameLayout;
 
 import java.util.ArrayList;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 /**
  * A simple {@link Fragment} subclass.
  */
@@ -32,9 +34,12 @@ public class MovieFragment extends Fragment {
 
     private ArrayList<Movie> movieList = new ArrayList<>();
     private MovieAdapter movieAdapter;
-    private RecyclerView rvMovie;
-    private TextView tvError;
-    private ShimmerFrameLayout shimmerFrameLayout;
+    @BindView(R.id.rv_movie)
+    RecyclerView rvMovie;
+    @BindView(R.id.error_data_not_load)
+    TextView tvError;
+    @BindView(R.id.shimmer_container)
+    ShimmerFrameLayout shimmerFrameLayout;
 
     public MovieFragment() {
         // Required empty public constructor
@@ -44,16 +49,9 @@ public class MovieFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_movie, container, false);
-    }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-        rvMovie = view.findViewById(R.id.rv_movie);
-        shimmerFrameLayout = view.findViewById(R.id.shimmer_container);
-        tvError = view.findViewById(R.id.error_data_not_load);
+        View view = inflater.inflate(R.layout.fragment_movie, container, false);
+        ButterKnife.bind(this, view);
+        return view;
     }
 
     @Override
